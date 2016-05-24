@@ -5,13 +5,27 @@ switch($_POST["action"]){
     case "updateApp":
         $app = $_REQUEST["app"];
         $ext = $_REQUEST["ext"];
+        $tab = $_REQUEST["tab"];
         $result["model"] = openTBSApp::getModels($app,$ext);
         $result["data"] = openTBSApp::getData($app);
+        $result["tab"] = $tab;
         break;
     case "updateExt":
         $app = $_REQUEST["app"];
         $ext = $_REQUEST["ext"];
         $result["model"] = openTBSApp::getModels($app,$ext);
+        break;
+    case "loadJson":
+        $app = $_REQUEST["app"];
+        $dataDir = APPS_DIR.$app.DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR;
+        $data = $_REQUEST["file"];
+        $dataName = sprintf("%s%s.%s",$dataDir,$data,"json");
+        $d = openTBSApp::loadData($dataName);
+        $result["data"] = $d;
+        break;
+    case "loadJsonFile":
+        break;
+    case "saveData":
         break;
     case "createDocument":
         $app = $_REQUEST["app"];

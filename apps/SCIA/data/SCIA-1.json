@@ -1,0 +1,28 @@
+{
+    "progettista_cf":"",
+    "progettista_cognome" : "ZERBI",
+    "progettista_nome" : "RICCARDO",
+    "progettista_albo_numero" : "156987",
+    "progettista_albo_prov" : "GE",
+    "numero_protocollo_barriere_architettoniche_deroga" : "8678",
+    "data_protocollo_barriere_architettoniche_deroga" : "10/04/2016",
+    "relazione_intervento" : "che bla bla bla \n aaaa",
+    "barriere_architettoniche_opt" : "4",
+    "barriere_architettoniche_deroga_opt" : "2",
+    "requisiti_art_77" : "accessibilita",
+    "tipologia_intervento_print" : ["Pippo","Pluto"],
+    "vincoli_tutela_ecologica_dg" : [
+        {
+                "vincoli_elenco_opt" : "Bla bla bla 1",
+                "vincoli_atti_assenso_opt" : "1",
+                "data_protocollo_vincoli_atti_assenso" : "10/01/2015",
+                "numero_protocollo_vincoli_atti_assenso" : "aa65478"
+        },
+        {
+                "vincoli_elenco_opt" : "Ullallà ullallà",
+                "vincoli_atti_assenso_opt" : "2",
+                "data_protocollo_vincoli_atti_assenso" : "13/04/2016",
+                "numero_protocollo_vincoli_atti_assenso" : "az98045"
+        }
+    ]
+}

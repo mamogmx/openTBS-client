@@ -17,14 +17,16 @@ EOT;
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Client OpenTBS to test documents MailMerge</title>
     
         <!-- Bootstrap -->
         <link href="css/jquery-ui.min.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+         <link href="css/jsoneditor.css" rel="stylesheet">
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/jsoneditor.js"></script>
         <script src="js/opentbs.plugin.js"></script>
         
 <?php
@@ -37,11 +39,12 @@ print $initScript;
     <body>
         <div>
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#result">Applicazione</a></li>
-                <li role="presentation"><a href="#admin">Gestione dei Modelli e dei dati</a></li>
+                <li role="presentation" class="active"><a href="#result-div" data-toggle="tab">Applicazione</a></li>
+                <li role="presentation"><a href="#model-div" data-toggle="tab">Gestione dei Modelli</a></li>
+                <li role="presentation"><a href="#data-div" data-toggle="tab">Gestione dei File Dati</a></li>
             </ul>
             <div class="tab-content">
-                <div id="result" role="tabpanel" class="tab-pane active">
+                <div id="result-div" role="tabpanel" class="tab-pane active">
                     <div class="container-fluid" style="width:90%;margin-top:50px;">
                         <div class="row">
                             <div class="col-md-3">
@@ -83,8 +86,45 @@ print $initScript;
                         </div>
                     </div>
                 </div>
-                <div id="admin" role="tabpanel" class="tab-pane">
-                    <h1>PINUCCIO</h1>
+                <div id="model-div" role="tabpanel" class="tab-pane">
+                    <h1>ALFA</h1>
+                </div>
+                 <div id="data-div" role="tabpanel" class="tab-pane">
+                    <div id="data-json" style="height:400px;width:100%;">
+                        
+                    </div>
+                    <div id="data-apps">
+                        <div class="container-fluid" style="width:100%;margin-top:50px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="data-app">Applicazione</label>
+                                    <select id="data-app" data-plugin="">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="data-data">File Dati</label>
+                                    <select id="data-data" data-plugin="">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button id="loadDataBtn" type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span><span style="margin-left:10px;">Carica Dati</span>
+                                    </button>
+                                    <button id="saveDataBtn" type="button" class="btn btn-default disabled">
+                                        <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Salva Dati</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="responseDataDiv">
+                        
+                    </div>
+                    <div id="data-list">
+                        
+                    </div>
                 </div>
             </div>
         </div>

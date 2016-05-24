@@ -1,0 +1,5 @@
+documenti/*.docx
+documenti/*.odt
+apps/*.docx
+apps/*.odt
+apps/*.json
