@@ -78,9 +78,9 @@ $.widget("gw.openTBS",{
         });
         $(this.saveDataBtn).unbind("click")
         $(this.saveDataBtn).bind("click",function(event){
-            self.saveJson($(self.loadapplication).val(),$(self.loaddatafile).val());
+            self.saveJson();
         });
-        console.log(this.loadData);
+        
     },
     updateApp: function(app,ext,tab){
         var self = this;
@@ -139,15 +139,17 @@ $.widget("gw.openTBS",{
     loadJsonFile: function(){
         
     },
-    saveJson: function(app,filename,data){
+    saveJson: function(){
         var self = this;
         var json = self.json_data.get();
+        var app = $(self.loadapplication).val();
+        var filename = $(self.datafilename).val();
         $(self.responseData).html('');
         $.ajax(this.options.url_server,{
             'data':{
                 'app': app,
                 'filename': filename,
-                'data': data,
+                'data': json,
                 'action': 'saveJson'
             },
             'method': 'POST',
@@ -213,11 +215,14 @@ $.widget("gw.openTBS",{
             case "loadJson":
                 if (data["error"]==0) {
                     self.json_data.set(data["data"]);
+                    self.datafilename.val(data["filename"]);
+                    console.log(data["filename"]);
                 }
                 else{
                     var html = data["error"];
                 }
                 $(self.responseData).html(html);
+                break;
             default:
                 console.log(data);
                 break;

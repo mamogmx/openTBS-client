@@ -22,10 +22,25 @@ switch($_POST["action"]){
         $dataName = sprintf("%s%s.%s",$dataDir,$data,"json");
         $d = openTBSApp::loadData($dataName);
         $result["data"] = $d;
+        $result["filename"] = pathinfo($dataName,PATHINFO_BASENAME);
         break;
     case "loadJsonFile":
+        $app = $_REQUEST["app"];
+        error_reporting(E_ALL | E_STRICT);
+        require(LIB_DIR.'UploadHandler.php');
+        $options=Array("upload_dir"=>APPS_DIR.$app.DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR);
+        $upload_handler = new UploadHandler($options);
         break;
-    case "saveData":
+    case "saveJson":
+        $app = $_REQUEST["app"];
+        $overwrite = (in_array("overwrite",array_keys($_REQUEST)))?($_REQUEST["overwrite"]):(0);
+        $filename = $_REQUEST["filename"];
+        $data = $_REQUEST["data"];
+        $dataDir = APPS_DIR.$app.DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR;
+        $res = openTBSApp::saveData($dataDir.$filename,$data,$overwrite);
+        if ($res < 0) {
+            $result["error"] = $res;
+        }
         break;
     case "createDocument":
         $app = $_REQUEST["app"];

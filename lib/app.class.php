@@ -53,6 +53,13 @@ class openTBSApp{
         return $data;
     }
     
+    static function saveData($filename,$data,$overwrite=0){
+        if (file_exists($filename) && !$overwrite) return -1;
+        $f = fopen($filename,'w');
+        $res = fwrite($f,json_encode($data));
+        fclose($f);
+        return ($res)?(1):(-2);
+    }
     static function rndString($length = 10,$onlyNumbers=1) {
         $characters = ($onlyNumbers==1)?('0123456789'):('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
         $charactersLength = strlen($characters);
