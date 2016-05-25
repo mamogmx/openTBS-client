@@ -7,6 +7,7 @@ $.widget("gw.openTBS",{
         'load_app_bookmark': 'data-app',
         'load_data_bookmark': 'data-data',
         'print': 'printBtn',
+        'data_filename': 'data-filename',
         'loadData': 'loadDataBtn',
         'loadDataFile': 'loadDataFileBtn',
         'saveData': 'saveDataBtn',
@@ -26,6 +27,7 @@ $.widget("gw.openTBS",{
         this.print = $("#"+this.options["print"]);
         this.response = $("#"+this.options["response"]);
         
+        this.datafilename = $("#"+this.options["data_filename"]);
         this.loadapplication = $("#"+this.options["load_app_bookmark"]);
         this.loaddatafile = $("#"+this.options["load_data_bookmark"]);
         this.loadDataBtn = $("#"+this.options["loadData"]);
@@ -137,8 +139,20 @@ $.widget("gw.openTBS",{
     loadJsonFile: function(){
         
     },
-    saveJson: function(app,filename){
-        
+    saveJson: function(app,filename,data){
+        var self = this;
+        var json = self.json_data.get();
+        $(self.responseData).html('');
+        $.ajax(this.options.url_server,{
+            'data':{
+                'app': app,
+                'filename': filename,
+                'data': data,
+                'action': 'saveJson'
+            },
+            'method': 'POST',
+            success: self.responseApp.bind(self)
+        })
     },
     
     responseApp: function(data,textStatus,jqXHR){

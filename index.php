@@ -90,31 +90,48 @@ print $initScript;
                     <h1>ALFA</h1>
                 </div>
                  <div id="data-div" role="tabpanel" class="tab-pane">
-                    <div id="data-json" style="height:400px;width:100%;">
+                    <div class="container-fluid" style="width:90%;margin-top:50px;">
+                        <div class="row">
+                            
+                        </div>
+                        <div class="col-md-9">
+                            <div id="data-json" style="height:400px;width:100%;">
                         
-                    </div>
-                    <div id="data-apps">
-                        <div class="container-fluid" style="width:100%;margin-top:50px;">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="data-app">Applicazione</label>
-                                    <select id="data-app" data-plugin="">
-                                        
-                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="data-apps">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="data-app">Applicazione</label>
+                                        <select id="data-app" data-plugin="">
+                                            
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label for="data-data">File Dati</label>
-                                    <select id="data-data" data-plugin="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="data-data">File Dati</label>
+                                        <select id="data-data" data-plugin="">
                                         
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <button id="loadDataBtn" type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span><span style="margin-left:10px;">Carica Dati</span>
-                                    </button>
-                                    <button id="saveDataBtn" type="button" class="btn btn-default disabled">
-                                        <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Salva Dati</span>
-                                    </button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="data-filename">Nome File</label>
+                                        <input type="text" id="data-filename" data-plugin="" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button id="loadDataBtn" type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span><span style="margin-left:10px;">Carica Dati</span>
+                                        </button>
+                                        <button id="saveDataBtn" type="button" class="btn btn-default disabled">
+                                            <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Salva Dati</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
