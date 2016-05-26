@@ -8,5 +8,10 @@ define("SERVICES_DIR",dirname($_SERVER['PHP_SELF'])."/services/");
 define("DOCUMENT_URL",dirname(dirname($_SERVER['PHP_SELF']))."/documenti/");
 require_once LIB_DIR."app.class.php";
 $apps = openTBSApp::getApplications();
-
+$models = openTBSApp::getAllModels();
+foreach($models as $key=>$val){
+    $nodes = Array();
+    foreach($val as $v) $nodes[]=Array("text"=>$v);
+    $tree[] = Array("text"=>$key,"nodes"=>$nodes);
+}
 ?>

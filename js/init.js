@@ -6,6 +6,9 @@ $(document).ready(function(){
     var jsonData = new JSONEditor(container, options);
     var a = $.gw.openTBS({'applications': applications,'url_server': service_url, 'url_print': print_url,'json_data':jsonData});
 
+    
+    $('#tree-model').treeview({data: models});
+    
     uploadButton = $('<button/>')
             .addClass('btn btn-primary')
             .prop('disabled', false)

@@ -1,14 +1,39 @@
 <?php
+function glob_recursive($pattern, $flags = 0)
+    {
+        $files = glob($pattern, $flags);
+        
+        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
+        {
+            $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
+        }
+        
+        return $files;
+    }
 class openTBSApp{
     static function getApplications(){
         $result = Array();
         foreach(glob(APPS_DIR."*",GLOB_ONLYDIR) as $d) $result[]=pathinfo($d,PATHINFO_FILENAME);
         return $result;
     }
-    static function getModels($app,$ext="docx"){
+    static function getModels($app,$ext="{docx,odt,xlsx,ods}"){
         $result = Array();
         $dir = APPS_DIR.$app.DIRECTORY_SEPARATOR."modelli".DIRECTORY_SEPARATOR;
         foreach(glob($dir."*.".$ext) as $d) $result[]=pathinfo($d,PATHINFO_FILENAME);
+        return $result;
+    }
+    static function getAllModels(){
+        $result = Array();
+        $dir = APPS_DIR;
+        $extensions=Array("docx","odt","xlsx","ods");
+        foreach($extensions as $ext){
+            //print_r(glob_recursive($dir."*.".$ext));
+            foreach(glob_recursive($dir."*.".$ext) as $d) {
+                $tmp = explode(DIRECTORY_SEPARATOR,dirname(dirname($d)));
+                $app = array_pop($tmp);
+                $result[$app][]=pathinfo($d,PATHINFO_BASENAME);
+            }
+        }
         return $result;
     }
     static function getData($app){

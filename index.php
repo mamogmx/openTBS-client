@@ -2,12 +2,15 @@
 require_once "init.app.php";
 $urlService = SERVICES_DIR."xServer.php";
 $urlPrint = SERVICES_DIR."xCreateDocument.php";
-$appsJson = json_encode($apps); 
+$appsJson = json_encode($apps);
+$modelsJson = json_encode($tree);
 $initScript =<<<EOT
         <script>
             var service_url = '$urlService';
             var print_url = '$urlPrint';
             var applications = $appsJson;
+            var models = $modelsJson;
+            
         </script>
 EOT;
 ?>
@@ -22,6 +25,7 @@ EOT;
         <!-- Bootstrap -->
         <link href="css/jquery-ui.min.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-treeview.css" rel="stylesheet">
         <link href="css/jsoneditor.css" rel="stylesheet">
         <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
         <link rel="stylesheet" href="css/jquery.fileupload.css">
@@ -89,43 +93,20 @@ print $initScript;
                         </div>
                     </div>
                 </div>
+                
+            <!-- GESTIONE DEI FILE E DELLE CARTELLE DELLE APPLICAZIONI -->                
+                
                 <div id="model-div" role="tabpanel" class="tab-pane">
                     <h1>Gestione dei Modelli di Stampa</h1>
-                </div>
-                 <div id="data-div" role="tabpanel" class="tab-pane">
                     <div class="container-fluid" style="width:90%;margin-top:50px;">
                         <div class="row">
+
+                            <div class="col-md-8">
+                                <div id="tree-model" style="height:400px;width:100%;">
                             
-                        </div>
-                        <div class="col-md-9">
-                            <div id="data-json" style="height:400px;width:100%;">
-                        
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div id="data-apps">
-                                <div class="row vertical-row">
-                                    <div class="col-md-12">
-                                        <label for="data-app">Applicazione</label>
-                                        <select id="data-app" class="pull-right" data-plugin="">
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row vertical-row">
-                                    <div class="col-md-12">
-                                        <label for="data-data">File Dati</label>
-                                        <select id="data-data" class="pull-right" data-plugin="">
-                                        
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row vertical-row">
-                                    <div class="col-md-12">
-                                        <label for="data-filename">Nome File</label>
-                                        <input type="text" id="data-filename" class="pull-right" data-plugin="" />
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
                                 <div class="row vertical-row">
                                     <div class="col-md-12">
                                         <label for="data-fileupload">File Dati</label>
@@ -151,18 +132,88 @@ print $initScript;
                                         <div id="files" class="files"></div>
                                     </div>
                                 </div>
-                                
                                 <div class="row vertical-row">
                                     <div class="col-md-12">
-                                        <button id="loadDataBtn" type="button" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span><span style="margin-left:10px;">Carica Dati</span>
-                                        </button>
-                                        <button id="saveDataBtn" type="button" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Salva Dati</span>
-                                        </button>
-                                        <button id="loadFileDataBtn" type="button" class="btn btn-default">
+                                        
+                                        <button id="loadFileModelBtn" type="button" class="btn btn-default">
                                             <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Carica File Dati</span>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="data-div" role="tabpanel" class="tab-pane">
+                    <div class="container-fluid" style="width:90%;margin-top:50px;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div id="data-json" style="height:400px;width:100%;">
+                            
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="data-apps">
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <label for="data-app">Applicazione</label>
+                                            <select id="data-app" class="pull-right" data-plugin="">
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <label for="data-data">File Dati</label>
+                                            <select id="data-data" class="pull-right" data-plugin="">
+                                            
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <label for="data-filename">Nome File</label>
+                                            <input type="text" id="data-filename" class="pull-right" data-plugin="" />
+                                        </div>
+                                    </div>
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <label for="data-fileupload">File Dati</label>
+                                            <span class="btn btn-success fileinput-button pull-right">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span>Seleziona un file ....</span>
+                                                <!-- The file input field used as target for the file upload widget -->
+                                                <input id="fileupload"" type="file" name="files[]" multiple>
+                                            </span>
+                                            <!--<input type="file" id=" name="files[]" class="pull-right" data-plugin="" />-->
+                                        </div>
+                                    </div>
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <div id="progress" class="progress">
+                                                <div class="progress-bar progress-bar-success"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <!-- The container for the uploaded files -->
+                                            <div id="files" class="files"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row vertical-row">
+                                        <div class="col-md-12">
+                                            <button id="loadDataBtn" type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span><span style="margin-left:10px;">Carica Dati</span>
+                                            </button>
+                                            <button id="saveDataBtn" type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Salva Dati</span>
+                                            </button>
+                                            <button id="loadFileDataBtn" type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-save" aria-hidden="true" ></span><span style="margin-left:10px;">Carica File Dati</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -184,6 +235,7 @@ print $initScript;
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-treeview.js"></script>
         <script src="js/jsoneditor.js"></script>
         <script src="js/opentbs.plugin.js"></script>
         <script src="js/jquery.iframe-transport.js"></script>
